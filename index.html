@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suncoast Mobile Detailing | Premium Car Detailing in Parkland, FL</title>
+  <meta name="description"
+    content="Suncoast Mobile Detailing — premium mobile car detailing in Parkland, Coral Springs, Boca Raton, Coconut Creek, Margate and all of South Florida. Packages from $50." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo"><img src="logo-icon.png" alt="Suncoast Mobile Detailing" class="logo-img" /></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#pricing">Packages</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#areas">Areas</a></li>
+        <li><a href="#contact" class="nav-cta">Book Now</a></li>
+      </ul>
+      <button class="cart-toggle" id="cartToggle" aria-label="Shopping Cart">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1" />
+          <circle cx="20" cy="21" r="1" />
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- THREE.JS HERO CANVAS -->
+  <canvas id="three-bg"></canvas>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-text" aria-hidden="true">SUNCOAST</div>
+    <div class="sparkles" aria-hidden="true">
+      <span class="sp sp1">✦</span><span class="sp sp2">✧</span><span class="sp sp3">✦</span>
+      <span class="sp sp4">✧</span><span class="sp sp5">✦</span><span class="sp sp6">✧</span>
+    </div>
+    <div class="hero-content" data-scroll="fade-up">
+      <img src="logo-icon.png" alt="Suncoast Mobile Detailing" class="hero-logo" />
+      <h1>PREMIUM MOBILE<br />DETAILING</h1>
+      <p class="hero-sub">We bring the shine to your driveway — Parkland &amp; all of South Florida.</p>
+      <div class="hero-btns">
+        <a href="#pricing" class="btn btn-glow">VIEW PACKAGES</a>
+        <a href="#contact" class="btn btn-ghost">GET A QUOTE</a>
+      </div>
+    </div>
+    <div class="hero-image-float" data-scroll="fade-up">
+      <img src="img-exterior.jpg" alt="Freshly detailed car" class="hero-car-img" />
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee marquee-orange">
+    <div class="marquee-track">
+      <span>PARKLAND ✦ CORAL SPRINGS ✦ BOCA RATON ✦ COCONUT CREEK ✦ MARGATE ✦ DEERFIELD BEACH ✦ POMPANO BEACH ✦ FORT
+        LAUDERDALE ✦ WESTON ✦&nbsp;</span>
+      <span>PARKLAND ✦ CORAL SPRINGS ✦ BOCA RATON ✦ COCONUT CREEK ✦ MARGATE ✦ DEERFIELD BEACH ✦ POMPANO BEACH ✦ FORT
+        LAUDERDALE ✦ WESTON ✦&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title" data-scroll="fade-up">WHAT WE DO</h2>
+      <div class="services-grid">
+        <div class="service-card" data-scroll="fade-up" data-delay="0">
+          <div class="service-img-wrap">
+            <img src="img-exterior.jpg" alt="Exterior detailing" class="service-img" />
+          </div>
+          <div class="service-body">
+            <h3>EXTERIOR WASH &amp; DETAIL</h3>
+            <p>Hand wash, dry, tire shine, wheel clean, and crystal-clear windows for that showroom look.</p>
+          </div>
+        </div>
+        <div class="service-card" data-scroll="fade-up" data-delay="1">
+          <div class="service-img-wrap">
+            <img src="img-interior.jpg" alt="Interior detailing" class="service-img" />
+          </div>
+          <div class="service-body">
+            <h3>INTERIOR DEEP CLEAN</h3>
+            <p>Full vacuum, wipe-down, dashboard conditioning, and a fresh-smelling cabin that feels brand new.</p>
+          </div>
+        </div>
+        <div class="service-card" data-scroll="fade-up" data-delay="2">
+          <div class="service-img-wrap">
+            <img src="img-waxing.jpg" alt="Premium wax detail" class="service-img" />
+          </div>
+          <div class="service-body">
+            <h3>WAX &amp; PREMIUM DETAIL</h3>
+            <p>Wax protection, leather conditioning, carpet shampoo — the complete luxury treatment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIG TEXT DIVIDER -->
+  <section class="bigtext-divider">
+    <div class="bigtext-inner">
+      <span class="bt-word" data-scroll="fade-up">FRESH.</span>
+      <span class="bt-word" data-scroll="fade-up" data-delay="1">CLEAN.</span>
+      <span class="bt-word" data-scroll="fade-up" data-delay="2">SHINE.</span>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="wave-top"><svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,50 C360,100 720,-10 1440,50 L1440,0 L0,0 Z" fill="#32bfc9" />
+      </svg></div>
+    <div class="container">
+      <h2 class="section-title" data-scroll="fade-up">OUR PACKAGES</h2>
+      <p class="section-sub" data-scroll="fade-up">Choose your level of shine.</p>
+      <div class="pricing-grid">
+        <!-- Coastal Rinse -->
+        <div class="pricing-card" data-scroll="fade-up" data-delay="0">
+          <div class="pricing-tier">ESSENTIALS</div>
+          <h3 class="pricing-name">Coastal Rinse</h3>
+          <div class="pricing-icon">🌊</div>
+          <div class="price-row"><span class="price-dollar">$</span><span class="price-num">50</span></div>
+          <div class="price-label">Sedan</div>
+          <div class="price-alt">$60 <span>SUV / Truck</span></div>
+          <ul class="pricing-features">
+            <li>Full inside &amp; out hand wash</li>
+            <li>Interior vacuum &amp; wipe-down</li>
+            <li>Exterior wash &amp; dry</li>
+            <li>Tire &amp; rim cleaning</li>
+            <li>Window cleaning</li>
+          </ul>
+          <a href="#contact" class="btn btn-card">BOOK NOW</a>
+        </div>
+        <!-- Ocean Glaze -->
+        <div class="pricing-card pricing-featured" data-scroll="fade-up" data-delay="1">
+          <div class="pricing-badge">⭐ POPULAR</div>
+          <div class="pricing-tier">ENHANCED</div>
+          <h3 class="pricing-name">Ocean Glaze</h3>
+          <div class="pricing-icon">🌴</div>
+          <div class="price-row"><span class="price-dollar">$</span><span class="price-num">75</span></div>
+          <div class="price-label">Sedan / SUV</div>
+          <ul class="pricing-features">
+            <li>Full inside &amp; out hand wash</li>
+            <li>Interior vacuum &amp; wipe-down</li>
+            <li>Exterior wash &amp; dry</li>
+            <li>Premium hand wax application</li>
+            <li>Tire &amp; rim shine</li>
+            <li>Window cleaning</li>
+          </ul>
+          <a href="#contact" class="btn btn-glow btn-card">BOOK NOW</a>
+        </div>
+        <!-- Sunset Elite -->
+        <div class="pricing-card" data-scroll="fade-up" data-delay="2">
+          <div class="pricing-tier">PREMIUM</div>
+          <h3 class="pricing-name">Sunset Elite</h3>
+          <div class="pricing-icon">🌅</div>
+          <div class="price-row"><span class="price-dollar">$</span><span class="price-num">120</span></div>
+          <div class="price-label">Sedan</div>
+          <div class="price-alt">$150 <span>SUV / Truck</span></div>
+          <ul class="pricing-features">
+            <li>Full inside &amp; out hand wash</li>
+            <li>Premium hand wax &amp; sealant</li>
+            <li>Leather conditioning treatment</li>
+            <li>Carpet &amp; upholstery shampoo</li>
+            <li>Dashboard &amp; trim restoration</li>
+            <li>Tire &amp; rim deep clean &amp; shine</li>
+            <li>Window cleaning inside &amp; out</li>
+          </ul>
+          <a href="#contact" class="btn btn-card">BOOK NOW</a>
+        </div>
+      </div>
+    </div>
+    <div class="wave-bot"><svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,30 C360,-20 720,80 1440,30 L1440,80 L0,80 Z" fill="#febc59" />
+      </svg></div>
+  </section>
+
+  <!-- MARQUEE 2 -->
+  <div class="marquee marquee-teal marquee-reverse">
+    <div class="marquee-track">
+      <span>WE COME TO YOU ✦ PREMIUM PRODUCTS ✦ ECO-FRIENDLY ✦ SATISFACTION GUARANTEED ✦ FLORIDA EXPERTS ✦&nbsp;</span>
+      <span>WE COME TO YOU ✦ PREMIUM PRODUCTS ✦ ECO-FRIENDLY ✦ SATISFACTION GUARANTEED ✦ FLORIDA EXPERTS ✦&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- SERVICE AREAS -->
+  <section class="areas" id="areas">
+    <div class="container">
+      <h2 class="section-title" data-scroll="fade-up">WHERE WE ROLL</h2>
+      <div class="areas-grid" data-scroll="fade-up">
+        <div class="area-chip area-home">📍 Parkland <span class="area-tag">HOME BASE</span></div>
+        <div class="area-chip">Coral Springs</div>
+        <div class="area-chip">Boca Raton</div>
+        <div class="area-chip">Coconut Creek</div>
+        <div class="area-chip">Margate</div>
+        <div class="area-chip">Deerfield Beach</div>
+        <div class="area-chip">Pompano Beach</div>
+        <div class="area-chip">Tamarac</div>
+        <div class="area-chip">Lighthouse Point</div>
+        <div class="area-chip">Weston</div>
+        <div class="area-chip">Plantation</div>
+        <div class="area-chip">Fort Lauderdale</div>
+      </div>
+      <p class="areas-note" data-scroll="fade-up">Don't see your city? <a href="#contact">Reach out</a> — we probably
+        cover it!</p>
+    </div>
+  </section>
+
+  <!-- GALLERY STRIP — 20 images seamless infinite scroll -->
+  <section class="gallery">
+    <div class="gallery-track">
+      <!-- Set 1: 10 unique images -->
+      <img src="img-exterior.jpg" alt="Exterior detail" />
+      <img src="img-handwash.jpg" alt="Hand wash detailing" />
+      <img src="img-interior.jpg" alt="Interior detail" />
+      <img src="img-wheel.jpg" alt="Wheel and tire shine" />
+      <img src="img-waxing.jpg" alt="Wax application" />
+      <img src="img-suv.jpg" alt="White SUV detailed" />
+      <img src="img-ceramic.jpg" alt="Ceramic coating" />
+      <img src="img-sportcar.jpg" alt="Red sports car" />
+      <img src="img-leather.jpg" alt="Leather interior" />
+      <img src="img-foam.jpg" alt="Foam cannon wash" />
+      <!-- Set 2: duplicate for seamless loop -->
+      <img src="img-exterior.jpg" alt="Exterior detail" />
+      <img src="img-handwash.jpg" alt="Hand wash detailing" />
+      <img src="img-interior.jpg" alt="Interior detail" />
+      <img src="img-wheel.jpg" alt="Wheel and tire shine" />
+      <img src="img-waxing.jpg" alt="Wax application" />
+      <img src="img-suv.jpg" alt="White SUV detailed" />
+      <img src="img-ceramic.jpg" alt="Ceramic coating" />
+      <img src="img-sportcar.jpg" alt="Red sports car" />
+      <img src="img-leather.jpg" alt="Leather interior" />
+      <img src="img-foam.jpg" alt="Foam cannon wash" />
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section class="shop" id="shop">
+    <div class="container">
+      <h2 class="section-title" data-scroll="fade-up">DETAILING SHOP</h2>
+      <p class="section-sub" data-scroll="fade-up">Pro-grade products at unbeatable prices — shipped to your door.</p>
+      <div class="shop-grid" id="shopGrid">
+        <!-- Products injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>YOUR CART</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <span class="cart-empty-icon">🛒</span>
+        <p>Your cart is empty</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span class="cart-subtotal-amount" id="cartSubtotal">$0.00</span>
+      </div>
+      <button class="btn btn-glow btn-card" id="checkoutBtn" disabled>CHECKOUT</button>
+    </div>
+  </aside>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="checkout-overlay" id="checkoutOverlay">
+    <div class="checkout-modal" id="checkoutModal">
+      <button class="checkout-close" id="checkoutClose">&times;</button>
+      <h2 class="checkout-title">CHECKOUT</h2>
+
+      <div class="checkout-summary" id="checkoutSummary"></div>
+
+      <form id="checkoutForm" autocomplete="on">
+        <h3 class="checkout-section-title">Shipping Info</h3>
+        <div class="checkout-field-row">
+          <div class="checkout-field">
+            <label for="shipName">Full Name</label>
+            <input type="text" id="shipName" name="name" required autocomplete="name" />
+          </div>
+          <div class="checkout-field">
+            <label for="shipEmail">Email</label>
+            <input type="email" id="shipEmail" name="email" required autocomplete="email" />
+          </div>
+        </div>
+        <div class="checkout-field">
+          <label for="shipPhone">Phone</label>
+          <input type="tel" id="shipPhone" name="phone" autocomplete="tel" />
+        </div>
+        <div class="checkout-field">
+          <label for="shipAddress">Address</label>
+          <input type="text" id="shipAddress" name="address" required autocomplete="street-address" />
+        </div>
+        <div class="checkout-field-row">
+          <div class="checkout-field">
+            <label for="shipCity">City</label>
+            <input type="text" id="shipCity" name="city" required autocomplete="address-level2" />
+          </div>
+          <div class="checkout-field">
+            <label for="shipState">State</label>
+            <input type="text" id="shipState" name="state" required autocomplete="address-level1" />
+          </div>
+          <div class="checkout-field">
+            <label for="shipZip">ZIP Code</label>
+            <input type="text" id="shipZip" name="zip" required autocomplete="postal-code" />
+          </div>
+        </div>
+
+        <h3 class="checkout-section-title">Payment</h3>
+        <div class="checkout-field">
+          <label>Card Details</label>
+          <div id="stripeCardElement" class="stripe-card-el"></div>
+          <div id="cardErrors" class="card-errors"></div>
+        </div>
+
+        <div class="checkout-total">
+          <span>Total</span>
+          <span class="checkout-total-amount" id="checkoutTotal">$0.00</span>
+        </div>
+
+        <button type="submit" class="btn btn-glow btn-card checkout-pay-btn" id="payBtn">
+          <span id="payBtnText">PAY NOW</span>
+          <span id="paySpinner" class="pay-spinner" style="display:none;"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ORDER CONFIRMATION -->
+  <div class="confirmation-overlay" id="confirmationOverlay">
+    <div class="confirmation-modal">
+      <div class="confirmation-icon">✅</div>
+      <h2>ORDER CONFIRMED!</h2>
+      <p class="confirmation-order-id" id="confirmOrderId"></p>
+      <p class="confirmation-msg">Your items are on the way. You'll receive a confirmation email shortly.</p>
+      <div class="confirmation-details" id="confirmDetails"></div>
+      <button class="btn btn-glow" id="confirmDone">CONTINUE SHOPPING</button>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-inner" data-scroll="fade-up">
+        <h2 class="section-title">READY FOR A<br />SHOWROOM SHINE?</h2>
+        <p class="section-sub">Get in touch to book your detail. We'll come to you!</p>
+        <div class="contact-methods">
+          <a href="tel:+19545547462" class="contact-card">
+            <div class="contact-emoji">📞</div>
+            <h3>CALL US</h3>
+            <p>(954) 554-7462</p>
+          </a>
+          <a href="sms:+19545547462" class="contact-card">
+            <div class="contact-emoji">💬</div>
+            <h3>TEXT US</h3>
+            <p>(954) 554-7462</p>
+          </a>
+          <a href="mailto:mail.suncoastmobile@gmail.com" class="contact-card">
+            <div class="contact-emoji">📧</div>
+            <h3>EMAIL US</h3>
+            <p>mail.suncoastmobile@gmail.com</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="logo-icon.png" alt="Suncoast" class="footer-logo" />
+          <p>Premium mobile car detailing across South Florida.</p>
+        </div>
+        <div class="footer-links">
+          <h4>LINKS</h4>
+          <a href="#services">Services</a><a href="#pricing">Packages</a><a href="#shop">Shop</a><a
+            href="#areas">Areas</a><a href="#contact">Contact</a>
+        </div>
+        <div class="footer-areas">
+          <h4>WE SERVICE</h4>
+          <p>Parkland · Coral Springs · Boca Raton · Coconut Creek · Margate · Deerfield Beach · Pompano Beach · Fort
+            Lauderdale</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Suncoast Mobile Detailing. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="three-scene.js"></script>
+  <!-- Stripe.js -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="script.js"></script>
+  <script src="shop.js"></script>
+</body>
+
+</html>
