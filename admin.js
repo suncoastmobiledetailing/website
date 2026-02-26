@@ -2,12 +2,13 @@
 
 // ===== FIREBASE CONFIG =====
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
+    apiKey: "AIzaSyCknOSxiSKhrvOnqx_-rE8lUMyanJVy26o",
     authDomain: "suncoast-crm.firebaseapp.com",
     projectId: "suncoast-crm",
-    storageBucket: "suncoast-crm.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    storageBucket: "suncoast-crm.firebasestorage.app",
+    messagingSenderId: "943335181837",
+    appId: "1:943335181837:web:54036acd361b71fc40cf44",
+    measurementId: "G-VGLDWMWP84"
 };
 
 firebase.initializeApp(firebaseConfig);
