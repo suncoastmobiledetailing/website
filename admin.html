@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel | Suncoast Mobile Detailing</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+
+    <!-- PASSWORD GATE -->
+    <div class="password-gate" id="passwordGate">
+        <div class="gate-card">
+            <img src="logo-icon.png" alt="Suncoast" class="gate-logo" />
+            <h1>ADMIN PANEL</h1>
+            <p>Enter your password to access the booking dashboard.</p>
+            <form id="passwordForm">
+                <div class="gate-field">
+                    <input type="password" id="gatePassword" placeholder="Password" autocomplete="current-password"
+                        required />
+                    <span class="gate-error" id="gateError"></span>
+                </div>
+                <button type="submit" class="btn btn-gate">UNLOCK</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div class="admin-dashboard" id="adminDashboard" style="display:none;">
+
+        <!-- HEADER -->
+        <header class="admin-header">
+            <div class="admin-header-inner">
+                <div class="admin-brand">
+                    <img src="logo-icon.png" alt="Suncoast" class="admin-logo" />
+                    <div>
+                        <h1>BOOKING DASHBOARD</h1>
+                        <p>Suncoast Mobile Detailing</p>
+                    </div>
+                </div>
+                <div class="admin-actions">
+                    <a href="booking.html" class="btn btn-sm btn-outline" target="_blank">📅 Booking Page</a>
+                    <a href="index.html" class="btn btn-sm btn-outline">🌐 Website</a>
+                    <button class="btn btn-sm btn-outline" onclick="logout()">🔒 Lock</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- STATS BAR -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <span class="stat-num" id="statToday">0</span>
+                <span class="stat-label">Today</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="statWeek">0</span>
+                <span class="stat-label">This Week</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="statPending">0</span>
+                <span class="stat-label">Pending</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="statRevenue">$0</span>
+                <span class="stat-label">Revenue (Confirmed)</span>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="admin-main">
+
+            <!-- TABS -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="calendar" onclick="switchTab('calendar')">📅 Calendar</button>
+                <button class="tab-btn" data-tab="today" onclick="switchTab('today')">🕐 Today</button>
+                <button class="tab-btn" data-tab="all" onclick="switchTab('all')">📋 All Bookings</button>
+            </div>
+
+            <!-- CALENDAR TAB -->
+            <div class="tab-panel active" id="tabCalendar">
+                <div class="admin-calendar-wrap">
+                    <div class="admin-cal-header">
+                        <button class="cal-nav" id="adminCalPrev" aria-label="Previous month">‹</button>
+                        <h2 class="cal-month" id="adminCalMonth"></h2>
+                        <button class="cal-nav" id="adminCalNext" aria-label="Next month">›</button>
+                    </div>
+                    <div class="admin-cal-weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="admin-cal-days" id="adminCalDays"></div>
+                </div>
+
+                <!-- Day Detail Sidebar -->
+                <div class="day-detail" id="dayDetail" style="display:none;">
+                    <div class="day-detail-header">
+                        <h3 id="dayDetailTitle"></h3>
+                        <button class="close-detail" onclick="closeDayDetail()">&times;</button>
+                    </div>
+                    <div class="day-detail-bookings" id="dayDetailBookings"></div>
+                </div>
+            </div>
+
+            <!-- TODAY TAB -->
+            <div class="tab-panel" id="tabToday">
+                <h2 class="tab-title">Today's Appointments</h2>
+                <div class="bookings-list" id="todayList"></div>
+            </div>
+
+            <!-- ALL BOOKINGS TAB -->
+            <div class="tab-panel" id="tabAll">
+                <div class="tab-header-row">
+                    <h2 class="tab-title">All Bookings</h2>
+                    <select class="filter-select" id="statusFilter" onchange="renderAllBookings()">
+                        <option value="all">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="bookings-list" id="allList"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

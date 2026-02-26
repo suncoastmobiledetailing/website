@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Your Detail | Suncoast Mobile Detailing</title>
+    <meta name="description"
+        content="Book your mobile car detailing appointment with Suncoast Mobile Detailing. Choose your package, pick a date, and we'll come to you!" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="booking.css" />
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><img src="logo-icon.png" alt="Suncoast Mobile Detailing"
+                    class="logo-img" /></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#pricing">Packages</a></li>
+                <li><a href="index.html#shop">Shop</a></li>
+                <li><a href="index.html#areas">Areas</a></li>
+                <li><a href="booking.html" class="nav-cta">Book Now</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- BOOKING HERO -->
+    <section class="booking-hero">
+        <div class="booking-hero-bg" aria-hidden="true">BOOK</div>
+        <div class="container">
+            <h1 class="booking-title">BOOK YOUR<br />DETAIL</h1>
+            <p class="booking-subtitle">Pick your package, choose a date, and we'll come to you. Payment is collected in
+                person.</p>
+        </div>
+    </section>
+
+    <!-- BOOKING STEPS -->
+    <section class="booking-section">
+        <div class="container">
+
+            <!-- PROGRESS BAR -->
+            <div class="booking-progress">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-num">1</div>
+                    <span>Package</span>
+                </div>
+                <div class="progress-line">
+                    <div class="progress-fill" id="progressFill1"></div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-num">2</div>
+                    <span>Date & Time</span>
+                </div>
+                <div class="progress-line">
+                    <div class="progress-fill" id="progressFill2"></div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-num">3</div>
+                    <span>Your Info</span>
+                </div>
+                <div class="progress-line">
+                    <div class="progress-fill" id="progressFill3"></div>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-num">4</div>
+                    <span>Confirm</span>
+                </div>
+            </div>
+
+            <!-- STEP 1: PACKAGE SELECTION -->
+            <div class="step-panel active" id="step1">
+                <h2 class="step-title">Choose Your Package</h2>
+
+                <!-- Vehicle Type -->
+                <div class="vehicle-selector">
+                    <label class="vehicle-option active" data-type="sedan">
+                        <input type="radio" name="vehicleType" value="sedan" checked />
+                        <div class="vehicle-card">
+                            <span class="vehicle-icon">🚗</span>
+                            <span class="vehicle-label">Sedan</span>
+                        </div>
+                    </label>
+                    <label class="vehicle-option" data-type="suv">
+                        <input type="radio" name="vehicleType" value="suv" />
+                        <div class="vehicle-card">
+                            <span class="vehicle-icon">🚙</span>
+                            <span class="vehicle-label">SUV / Truck</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Package Cards -->
+                <div class="package-grid">
+                    <div class="package-card" data-package="basic" data-sedan="50" data-suv="60">
+                        <div class="package-tier">ESSENTIALS</div>
+                        <h3 class="package-name">Basic</h3>
+                        <div class="package-icon">🌊</div>
+                        <div class="package-price">$<span class="price-amount">50</span></div>
+                        <ul class="package-features">
+                            <li>Full inside & out hand wash</li>
+                            <li>Interior vacuum & wipe-down</li>
+                            <li>Exterior wash & dry</li>
+                            <li>Tire & rim cleaning</li>
+                            <li>Window cleaning</li>
+                        </ul>
+                        <button class="btn btn-select" onclick="selectPackage('basic')">SELECT</button>
+                    </div>
+
+                    <div class="package-card featured" data-package="wax" data-sedan="75" data-suv="75">
+                        <div class="package-badge">⭐ POPULAR</div>
+                        <div class="package-tier">ENHANCED</div>
+                        <h3 class="package-name">Basic + Wax Add-On</h3>
+                        <div class="package-icon">🌴</div>
+                        <div class="package-price">$<span class="price-amount">75</span></div>
+                        <ul class="package-features">
+                            <li>Full inside & out hand wash</li>
+                            <li>Interior vacuum & wipe-down</li>
+                            <li>Exterior wash & dry</li>
+                            <li>Premium hand wax application</li>
+                            <li>Tire & rim shine</li>
+                            <li>Window cleaning</li>
+                        </ul>
+                        <button class="btn btn-select btn-select-featured"
+                            onclick="selectPackage('wax')">SELECT</button>
+                    </div>
+
+                    <div class="package-card" data-package="full" data-sedan="120" data-suv="150">
+                        <div class="package-tier">PREMIUM</div>
+                        <h3 class="package-name">Full Package</h3>
+                        <div class="package-icon">🌅</div>
+                        <div class="package-price">$<span class="price-amount">120</span></div>
+                        <ul class="package-features">
+                            <li>Full inside & out hand wash</li>
+                            <li>Premium hand wax & sealant</li>
+                            <li>Leather conditioning treatment</li>
+                            <li>Carpet & upholstery shampoo</li>
+                            <li>Dashboard & trim restoration</li>
+                            <li>Tire & rim deep clean & shine</li>
+                            <li>Window cleaning inside & out</li>
+                        </ul>
+                        <button class="btn btn-select" onclick="selectPackage('full')">SELECT</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: DATE & TIME -->
+            <div class="step-panel" id="step2">
+                <h2 class="step-title">Pick a Date & Time</h2>
+                <div class="datetime-grid">
+                    <div class="calendar-wrap">
+                        <div class="calendar-header">
+                            <button class="cal-nav" id="calPrev" aria-label="Previous month">‹</button>
+                            <h3 class="cal-month" id="calMonth"></h3>
+                            <button class="cal-nav" id="calNext" aria-label="Next month">›</button>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                        </div>
+                        <div class="calendar-days" id="calDays"></div>
+                    </div>
+                    <div class="time-wrap">
+                        <h3 class="time-title">Choose a Time Slot</h3>
+                        <p class="time-subtitle" id="selectedDateLabel">Select a date first</p>
+                        <div class="time-slots" id="timeSlots">
+                            <button class="time-slot" data-slot="9:00 AM" disabled>9:00 AM</button>
+                            <button class="time-slot" data-slot="10:00 AM" disabled>10:00 AM</button>
+                            <button class="time-slot" data-slot="11:00 AM" disabled>11:00 AM</button>
+                            <button class="time-slot" data-slot="12:00 PM" disabled>12:00 PM</button>
+                            <button class="time-slot" data-slot="1:00 PM" disabled>1:00 PM</button>
+                            <button class="time-slot" data-slot="2:00 PM" disabled>2:00 PM</button>
+                            <button class="time-slot" data-slot="3:00 PM" disabled>3:00 PM</button>
+                            <button class="time-slot" data-slot="4:00 PM" disabled>4:00 PM</button>
+                        </div>
+                        <div class="dt-actions">
+                            <button class="btn btn-back" onclick="goToStep(1)">← Back</button>
+                            <button class="btn btn-next" id="btnToStep3" onclick="goToStep(3)" disabled>Continue
+                                →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: CUSTOMER INFO -->
+            <div class="step-panel" id="step3">
+                <h2 class="step-title">Your Information</h2>
+                <form id="bookingForm" autocomplete="on" novalidate>
+                    <!-- Honeypot -->
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="website">Website</label>
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="custName">Full Name *</label>
+                            <input type="text" id="custName" name="name" required autocomplete="name"
+                                placeholder="John Doe" />
+                            <span class="field-error" id="errName"></span>
+                        </div>
+                        <div class="form-field">
+                            <label for="custPhone">Phone Number *</label>
+                            <input type="tel" id="custPhone" name="phone" required autocomplete="tel"
+                                placeholder="(954) 555-1234" />
+                            <span class="field-error" id="errPhone"></span>
+                        </div>
+                        <div class="form-field">
+                            <label for="custEmail">Email (optional)</label>
+                            <input type="email" id="custEmail" name="email" autocomplete="email"
+                                placeholder="john@example.com" />
+                            <span class="field-error" id="errEmail"></span>
+                        </div>
+                        <div class="form-field">
+                            <label for="custAddress">Address *</label>
+                            <input type="text" id="custAddress" name="address" required autocomplete="street-address"
+                                placeholder="123 Main St, Parkland FL 33076" />
+                            <span class="field-error" id="errAddress"></span>
+                        </div>
+                        <div class="form-field full-width">
+                            <label for="custNotes">Notes (optional)</label>
+                            <textarea id="custNotes" name="notes" rows="3"
+                                placeholder="e.g. Black Tesla Model 3, park in driveway, gate code 1234"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-back" onclick="goToStep(2)">← Back</button>
+                        <button type="submit" class="btn btn-next">Review Booking →</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 4: CONFIRMATION -->
+            <div class="step-panel" id="step4">
+                <h2 class="step-title">Review & Confirm</h2>
+                <div class="confirm-card">
+                    <div class="confirm-section">
+                        <h3>📦 Package</h3>
+                        <p id="confirmPackage"></p>
+                        <p id="confirmVehicle"></p>
+                        <p class="confirm-price" id="confirmPrice"></p>
+                    </div>
+                    <div class="confirm-section">
+                        <h3>📅 Appointment</h3>
+                        <p id="confirmDate"></p>
+                        <p id="confirmTime"></p>
+                    </div>
+                    <div class="confirm-section">
+                        <h3>👤 Your Info</h3>
+                        <p id="confirmName"></p>
+                        <p id="confirmPhone"></p>
+                        <p id="confirmEmail"></p>
+                        <p id="confirmAddress"></p>
+                        <p id="confirmNotes"></p>
+                    </div>
+                    <div class="confirm-payment">
+                        <div class="payment-badge">💵 PAY IN PERSON</div>
+                        <p>No payment required now. Pay when your detail is complete.</p>
+                    </div>
+                    <div class="confirm-actions">
+                        <button class="btn btn-back" onclick="goToStep(3)">← Edit Info</button>
+                        <button class="btn btn-confirm" id="btnConfirmBooking" onclick="submitBooking()">
+                            <span id="confirmBtnText">CONFIRM BOOKING</span>
+                            <span id="confirmSpinner" class="spinner" style="display:none;"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUCCESS SCREEN -->
+            <div class="step-panel" id="stepSuccess" style="display:none;">
+                <div class="success-card">
+                    <div class="success-icon">✅</div>
+                    <h2>BOOKING CONFIRMED!</h2>
+                    <p class="success-id" id="successId"></p>
+                    <p class="success-msg">We'll see you at your scheduled time. Payment is collected in person when the
+                        job is
+                        done.</p>
+                    <div class="success-details" id="successDetails"></div>
+                    <div class="success-contact">
+                        <p>Questions? Contact us:</p>
+                        <a href="tel:+19545547462">📞 (954) 554-7462</a>
+                        <a href="mailto:mail.suncoastmobile@gmail.com">📧 mail.suncoastmobile@gmail.com</a>
+                    </div>
+                    <a href="index.html" class="btn btn-confirm">BACK TO HOME</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="logo-icon.png" alt="Suncoast" class="footer-logo" />
+                    <p>Premium mobile car detailing across South Florida.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>LINKS</h4>
+                    <a href="index.html#services">Services</a><a href="index.html#pricing">Packages</a><a
+                        href="index.html#shop">Shop</a><a href="index.html#areas">Areas</a><a href="booking.html">Book
+                        Now</a>
+                </div>
+                <div class="footer-areas">
+                    <h4>WE SERVICE</h4>
+                    <p>Parkland · Coral Springs · Boca Raton · Coconut Creek · Margate · Deerfield Beach · Pompano Beach
+                        · Fort
+                        Lauderdale</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Suncoast Mobile Detailing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK (compat for simplicity) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="booking.js"></script>
+</body>
+
+</html>
