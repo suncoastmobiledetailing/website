@@ -110,6 +110,14 @@ function renderCalendar() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    // Earliest bookable date is tomorrow
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    // Latest bookable date is 4 weeks from today
+    const maxBookingDate = new Date(today);
+    maxBookingDate.setDate(maxBookingDate.getDate() + 28);
+
     const container = document.getElementById('calDays');
     container.innerHTML = '';
 
@@ -127,10 +135,10 @@ function renderCalendar() {
         btn.textContent = d;
 
         const dateStr = formatDate(date);
-        const isSunday = date.getDay() === 0;
-        const isPast = date < today;
+        const isTooEarly = date < tomorrow;
+        const isTooLate = date > maxBookingDate;
 
-        if (isSunday || isPast) {
+        if (isTooEarly || isTooLate) {
             btn.classList.add('disabled');
             btn.disabled = true;
         } else {
@@ -158,8 +166,9 @@ document.getElementById('calPrev').addEventListener('click', () => {
 document.getElementById('calNext').addEventListener('click', () => {
     calendarMonth++;
     if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; }
+    // Limit to 4 weeks out
     const maxDate = new Date();
-    maxDate.setMonth(maxDate.getMonth() + 3);
+    maxDate.setDate(maxDate.getDate() + 28);
     if (calendarYear > maxDate.getFullYear() || (calendarYear === maxDate.getFullYear() && calendarMonth > maxDate.getMonth())) {
         calendarMonth = maxDate.getMonth();
         calendarYear = maxDate.getFullYear();
@@ -286,6 +295,14 @@ function validateForm() {
         errAddress.textContent = 'Please enter your address';
         address.classList.add('invalid');
         valid = false;
+    } else if (addressIsInArea === false) {
+        errAddress.textContent = 'This address is outside our service area';
+        address.classList.add('invalid');
+        valid = false;
+    } else if (addressSelectedCoords === null) {
+        errAddress.textContent = 'Please select an address from the dropdown suggestions';
+        address.classList.add('invalid');
+        valid = false;
     } else { errAddress.textContent = ''; address.classList.remove('invalid'); }
 
     return valid;
@@ -299,6 +316,254 @@ document.getElementById('custPhone').addEventListener('input', function () {
         this.value = '(' + val.substring(0, 3) + ') ' + val.substring(3, 6) + '-' + val.substring(6);
     } else if (val.length >= 3) {
         this.value = '(' + val.substring(0, 3) + ') ' + val.substring(3);
+    }
+});
+
+// ===== ADDRESS AUTOCOMPLETE =====
+const PARKLAND_LAT = 26.3101;
+const PARKLAND_LNG = -80.2371;
+const MAX_DISTANCE_MILES = 25;
+
+let addressDebounceTimer = null;
+let addressSelectedCoords = null;
+let addressIsInArea = null;
+let highlightedIndex = -1;
+let currentSuggestions = [];
+
+const addressInput = document.getElementById('custAddress');
+const addressDropdown = document.getElementById('addressDropdown');
+const outOfAreaBanner = document.getElementById('outOfAreaBanner');
+
+// Haversine formula — distance in miles between two lat/lng points
+function haversineDistance(lat1, lng1, lat2, lng2) {
+    const R = 3958.8; // Earth radius in miles
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+}
+
+// Fetch address suggestions from Photon (OSM autocomplete, free, no API key)
+async function fetchAddressSuggestions(query) {
+    const url = 'https://photon.komoot.io/api/?' + new URLSearchParams({
+        q: query,
+        limit: 7,
+        lat: PARKLAND_LAT,
+        lon: PARKLAND_LNG,
+        lang: 'en'
+    });
+
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error('Geocoding failed');
+    const data = await resp.json();
+
+    // Filter to Florida-only results
+    return data.features.filter(function (f) {
+        var p = f.properties;
+        return p.state && p.state.toLowerCase().includes('florida');
+    });
+}
+
+// Format a Photon feature into a display string
+function formatPhotonAddress(feature) {
+    var p = feature.properties;
+    var parts = [];
+
+    // Build street address
+    if (p.housenumber && p.street) {
+        parts.push(p.housenumber + ' ' + p.street);
+    } else if (p.street) {
+        parts.push(p.street);
+    } else if (p.name && p.name !== p.city) {
+        parts.push(p.name);
+    }
+
+    if (p.city) parts.push(p.city);
+    if (p.state) parts.push(p.state);
+    if (p.postcode) parts.push(p.postcode);
+
+    return parts.join(', ');
+}
+
+// Show dropdown
+function showDropdown() {
+    addressDropdown.classList.add('visible');
+}
+
+function hideDropdown() {
+    addressDropdown.classList.remove('visible');
+    highlightedIndex = -1;
+}
+
+// Render suggestions
+function renderSuggestions(results) {
+    currentSuggestions = results;
+    highlightedIndex = -1;
+    addressDropdown.innerHTML = '';
+
+    if (results.length === 0) {
+        addressDropdown.innerHTML = '<div class="no-results">No addresses found. Try being more specific.</div>';
+        showDropdown();
+        return;
+    }
+
+    results.forEach(function (result, index) {
+        const item = document.createElement('div');
+        item.className = 'address-suggestion';
+        item.dataset.index = index;
+
+        var p = result.properties;
+        // Build main line (street address or name)
+        var main = '';
+        if (p.housenumber && p.street) {
+            main = p.housenumber + ' ' + p.street;
+        } else if (p.street) {
+            main = p.street;
+        } else if (p.name) {
+            main = p.name;
+        }
+
+        // Build secondary line (city, state, zip)
+        var secondaryParts = [];
+        if (p.city && p.city !== main) secondaryParts.push(p.city);
+        if (p.county) secondaryParts.push(p.county);
+        if (p.state) secondaryParts.push(p.state);
+        if (p.postcode) secondaryParts.push(p.postcode);
+        var secondary = secondaryParts.join(', ');
+
+        item.innerHTML =
+            '<span class="suggestion-main">' + escapeHtml(main || p.name || 'Unknown') + '</span>' +
+            '<span class="suggestion-secondary">' + escapeHtml(secondary) + '</span>';
+
+        item.addEventListener('click', function () {
+            selectAddress(result);
+        });
+
+        item.addEventListener('mouseenter', function () {
+            highlightedIndex = index;
+            updateHighlight();
+        });
+
+        addressDropdown.appendChild(item);
+    });
+
+    showDropdown();
+}
+
+function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+function updateHighlight() {
+    var items = addressDropdown.querySelectorAll('.address-suggestion');
+    items.forEach(function (el, i) {
+        el.classList.toggle('highlighted', i === highlightedIndex);
+    });
+}
+
+// Select an address from dropdown
+function selectAddress(result) {
+    // Photon uses GeoJSON: coordinates are [lng, lat]
+    const coords = result.geometry.coordinates;
+    const lat = coords[1];
+    const lng = coords[0];
+    addressSelectedCoords = { lat: lat, lng: lng };
+
+    // Build clean display address
+    addressInput.value = formatPhotonAddress(result);
+    hideDropdown();
+
+    // Calculate distance
+    const distance = haversineDistance(PARKLAND_LAT, PARKLAND_LNG, lat, lng);
+    const distanceMiles = Math.round(distance * 10) / 10;
+
+    // Remove any previous in-area indicator
+    var existingInArea = document.querySelector('.address-in-area');
+    if (existingInArea) existingInArea.remove();
+
+    if (distance > MAX_DISTANCE_MILES) {
+        addressIsInArea = false;
+        outOfAreaBanner.style.display = 'flex';
+        addressInput.classList.add('invalid');
+        document.getElementById('errAddress').textContent = '';
+    } else {
+        addressIsInArea = true;
+        outOfAreaBanner.style.display = 'none';
+        addressInput.classList.remove('invalid');
+        document.getElementById('errAddress').textContent = '';
+
+        // Show "in area" confirmation
+        var inAreaEl = document.createElement('div');
+        inAreaEl.className = 'address-in-area';
+        inAreaEl.textContent = '✅ Within service area (' + distanceMiles + ' miles from Parkland)';
+        addressInput.closest('.form-field').appendChild(inAreaEl);
+    }
+}
+
+// Debounced input handler
+addressInput.addEventListener('input', function () {
+    var query = this.value.trim();
+
+    // Reset state when user types manually after a selection
+    addressSelectedCoords = null;
+    addressIsInArea = null;
+    outOfAreaBanner.style.display = 'none';
+    var existingInArea = document.querySelector('.address-in-area');
+    if (existingInArea) existingInArea.remove();
+
+    if (addressDebounceTimer) clearTimeout(addressDebounceTimer);
+
+    if (query.length < 3) {
+        hideDropdown();
+        return;
+    }
+
+    // Show loading indicator
+    addressDropdown.innerHTML = '<div class="address-loading">Searching addresses</div>';
+    showDropdown();
+
+    addressDebounceTimer = setTimeout(async function () {
+        try {
+            var results = await fetchAddressSuggestions(query);
+            renderSuggestions(results);
+        } catch (err) {
+            console.warn('Address lookup failed:', err);
+            addressDropdown.innerHTML = '<div class="no-results">Unable to search. Please type your full address.</div>';
+        }
+    }, 400);
+});
+
+// Keyboard navigation
+addressInput.addEventListener('keydown', function (e) {
+    if (!addressDropdown.classList.contains('visible') || currentSuggestions.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        highlightedIndex = Math.min(highlightedIndex + 1, currentSuggestions.length - 1);
+        updateHighlight();
+    } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        highlightedIndex = Math.max(highlightedIndex - 1, 0);
+        updateHighlight();
+    } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (highlightedIndex >= 0 && highlightedIndex < currentSuggestions.length) {
+            selectAddress(currentSuggestions[highlightedIndex]);
+        }
+    } else if (e.key === 'Escape') {
+        hideDropdown();
+    }
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function (e) {
+    if (!e.target.closest('.address-autocomplete-wrap')) {
+        hideDropdown();
     }
 });
 

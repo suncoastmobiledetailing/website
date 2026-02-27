@@ -1012,6 +1012,204 @@ img {
     }
 }
 
+/* ===== ADDRESS AUTOCOMPLETE ===== */
+.address-autocomplete-wrap {
+    position: relative;
+}
+
+.address-autocomplete-wrap .address-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.15rem;
+    z-index: 2;
+    pointer-events: none;
+    filter: grayscale(0.3);
+}
+
+.address-autocomplete-wrap input {
+    padding-left: 42px !important;
+    width: 100%;
+}
+
+.address-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(20, 28, 50, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    max-height: 280px;
+    overflow-y: auto;
+    display: none;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.address-dropdown.visible {
+    display: block;
+    animation: dropdownSlide 0.25s ease;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.address-suggestion {
+    padding: 14px 16px 14px 42px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.address-suggestion::before {
+    content: '📍';
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85rem;
+    opacity: 0.5;
+}
+
+.address-suggestion:hover,
+.address-suggestion.highlighted {
+    background: rgba(50, 191, 201, 0.15);
+    color: var(--white);
+}
+
+.address-suggestion:hover::before,
+.address-suggestion.highlighted::before {
+    opacity: 1;
+}
+
+.address-suggestion:last-child {
+    border-bottom: none;
+    border-radius: 0 0 14px 14px;
+}
+
+.address-suggestion .suggestion-main {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.address-suggestion .suggestion-secondary {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: block;
+}
+
+.address-dropdown .address-loading {
+    padding: 18px 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.address-dropdown .address-loading::after {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: var(--teal);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.address-dropdown .no-results {
+    padding: 18px 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Out of Area Banner */
+.out-of-area-banner {
+    margin-top: 12px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: rgba(255, 80, 80, 0.1);
+    border: 1px solid rgba(255, 80, 80, 0.35);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    animation: bannerSlide 0.4s ease;
+}
+
+@keyframes bannerSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ooa-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.ooa-text strong {
+    display: block;
+    color: #ff6b6b;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.ooa-text p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.ooa-text a {
+    color: var(--teal-light);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.ooa-text a:hover {
+    color: var(--teal);
+}
+
+/* Within area success indicator */
+.address-in-area {
+    margin-top: 8px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: rgba(26, 122, 92, 0.15);
+    border: 1px solid rgba(26, 122, 92, 0.3);
+    font-size: 0.85rem;
+    color: #22c55e;
+    font-weight: 600;
+    animation: bannerSlide 0.3s ease;
+}
+
 /* ===== FOOTER (same as main) ===== */
 .footer {
     background: #070d1a;
