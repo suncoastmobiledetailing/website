@@ -15,7 +15,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // ===== PASSWORD (SHA-256 hashed — actual password NOT stored in code) =====
-const ADMIN_PW_HASH = 'bd3cf78d77f50874d80028fb10472070df75dde8320f7b268f9e3bc3a20e2236';
+const ADMIN_PW_HASH = 'ff3fe453efdbd3361fd3b50d9a6c9b92d91df2abfe204f8053b8cb3bae7365be';
 let allBookings = [];
 
 // Hash a string with SHA-256
