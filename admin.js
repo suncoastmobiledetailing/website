@@ -1,19 +1,29 @@
 // ===== SUNCOAST MOBILE DETAILING — ADMIN PANEL =====
 
-// Firebase config loaded from firebase-config.js (git-ignored)
+// ===== FIREBASE CONFIG =====
+const firebaseConfig = {
+    apiKey: "AIzaSyCknOSxiSKhrvOnqx_-rE8lUMyanJVy26o",
+    authDomain: "suncoast-crm.firebaseapp.com",
+    projectId: "suncoast-crm",
+    storageBucket: "suncoast-crm.firebasestorage.app",
+    messagingSenderId: "943335181837",
+    appId: "1:943335181837:web:54036acd361b71fc40cf44",
+    measurementId: "G-VGLDWMWP84"
+};
+
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ===== PASSWORD (SHA-256 hash comparison) =====
+// ===== PASSWORD (SHA-256 hashed — actual password NOT stored in code) =====
+const ADMIN_PW_HASH = 'bd3cf78d77f50874d80028fb10472070df75dde8320f7b268f9e3bc3a20e2236';
 let allBookings = [];
 
-// Hash function for password comparison
-async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+// Hash a string with SHA-256
+async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256',
+        new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 // Check session
@@ -24,8 +34,8 @@ if (sessionStorage.getItem('sc_admin') === 'true') {
 document.getElementById('passwordForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     const pw = document.getElementById('gatePassword').value;
-    const pwHash = await hashPassword(pw);
-    if (pwHash === ADMIN_PASSWORD_HASH) {
+    const hash = await sha256(pw);
+    if (hash === ADMIN_PW_HASH) {
         sessionStorage.setItem('sc_admin', 'true');
         showDashboard();
     } else {

@@ -150,41 +150,7 @@ cd website
 npm install
 ```
 
-### 3️⃣ Set Up Firebase (Required for Booking System)
-
-1. Go to the [Firebase Console](https://console.firebase.google.com/) and create a project (or use an existing one)
-2. Enable **Cloud Firestore** in the Firebase console → Build → Firestore Database
-3. Set your Firestore security rules (see [Security Rules](#-firestore-security-rules) below)
-4. Go to Project Settings → General → Your Apps → Add a Web App
-5. Copy the Firebase config object
-
-Then create your local config file:
-
-```bash
-cp firebase-config.example.js firebase-config.js
-```
-
-Fill in `firebase-config.js` with your Firebase project values:
-
-```js
-const firebaseConfig = {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.firebasestorage.app",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID",
-    measurementId: "YOUR_MEASUREMENT_ID"
-};
-
-// Admin password — stored as SHA-256 hash, NOT plain text!
-// Generate a hash: echo -n "yourpassword" | shasum -a 256
-const ADMIN_PASSWORD_HASH = "YOUR_SHA256_HASH_HERE";
-```
-
-> ⚠️ **IMPORTANT:** `firebase-config.js` is git-ignored to keep your config private. Never commit it!
-
-### 4️⃣ Set Up Stripe & Email (Optional — Shop Only)
+### 3️⃣ Set Up Environment Variables
 
 Copy the example env file and fill in your keys:
 
@@ -214,7 +180,7 @@ PORT=3000
 
 > ⚠️ **IMPORTANT:** Never commit your `.env` file! It's already in `.gitignore` to keep your secrets safe 🔐
 
-### 5️⃣ Start the Server
+### 4️⃣ Start the Server
 
 ```bash
 npm start
@@ -224,53 +190,20 @@ Your site will be running at **http://localhost:3000** 🎉
 
 ---
 
-## 🔑 Configuration Reference
+## 🔑 Environment Variables Explained
 
-### `firebase-config.js` (Required for Booking + Admin)
+| Variable | Required? | What It Does |
+|----------|-----------|-------------|
+| `STRIPE_SECRET_KEY` | 🛒 Shop only | Your Stripe secret key for processing payments |
+| `STRIPE_PUBLISHABLE_KEY` | 🛒 Shop only | Your Stripe public key for the checkout form |
+| `SMTP_HOST` | 📧 Emails only | SMTP server for sending order notifications |
+| `SMTP_PORT` | 📧 Emails only | SMTP port (usually 587 for TLS) |
+| `SMTP_USER` | 📧 Emails only | Email account username |
+| `SMTP_PASS` | 📧 Emails only | Email account password or app password |
+| `NOTIFICATION_EMAIL` | 📧 Emails only | Where to send order notification emails |
+| `PORT` | Optional | Server port (defaults to 3000) |
 
-| Variable | What It Does |
-|----------|-------------|
-| `firebaseConfig.apiKey` | Firebase API key (project identifier) |
-| `firebaseConfig.projectId` | Your Firebase project ID |
-| `firebaseConfig.appId` | Your Firebase web app ID |
-| `ADMIN_PASSWORD_HASH` | SHA-256 hash of the admin panel password |
-
-### `.env` (Required for Shop Only)
-
-| Variable | What It Does |
-|----------|-------------|
-| `STRIPE_SECRET_KEY` | Your Stripe secret key for processing payments |
-| `STRIPE_PUBLISHABLE_KEY` | Your Stripe public key for the checkout form |
-| `SMTP_HOST` | SMTP server for sending order notifications |
-| `SMTP_PORT` | SMTP port (usually 587 for TLS) |
-| `SMTP_USER` | Email account username |
-| `SMTP_PASS` | Email account password or app password |
-| `NOTIFICATION_EMAIL` | Where to send order notification emails |
-| `PORT` | Server port (defaults to 3000) |
-
-> 💡 **Note:** The landing page works without any config at all. The booking system and admin panel need `firebase-config.js`. The shop backend needs `.env`.
-
----
-
-## 🔥 Firestore Security Rules
-
-Set these rules in the [Firebase Console](https://console.firebase.google.com/) → Firestore → Rules to protect your data:
-
-```js
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // Bookings: anyone can create, only authenticated reads for admin
-    match /bookings/{bookingId} {
-      allow create: if true;
-      allow read, update: if true; // Tighten with Firebase Auth for production
-      allow delete: if false;
-    }
-  }
-}
-```
-
-> 🔒 **Tip:** For production, consider adding [Firebase Authentication](https://firebase.google.com/docs/auth) to restrict admin reads/updates to authenticated users only.
+> 💡 **Note:** The landing page and booking system work without any env vars — they use Firebase on the client side. The env vars are only needed for the shop's backend (Stripe payments + order emails).
 
 ---
 
@@ -305,10 +238,9 @@ We take security seriously! Here's what we do:
 - 🍯 **Honeypot fields** — Catches bots filling out hidden form fields
 - ⏱️ **Timing checks** — Blocks forms submitted suspiciously fast
 - 📱 **Rate limiting** — Max 3 bookings per phone number per day
-- 🔐 **No secrets in code** — Firebase config in git-ignored `firebase-config.js`, server keys in git-ignored `.env`
-- 🔑 **Hashed admin password** — Admin password stored as SHA-256 hash, never plain text
+- 🔐 **No secrets in code** — All API keys live in `.env` (git-ignored)
 - 🛡️ **Firebase rules** — Firestore security rules protect booking data
-- 🚫 **Double-booking prevention** — Race condition check before confirming any booking
+- 🚫 **Double-booking prevention** — Server-side race condition check before confirming
 
 ---
 
