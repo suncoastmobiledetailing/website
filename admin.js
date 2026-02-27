@@ -1,32 +1,31 @@
 // ===== SUNCOAST MOBILE DETAILING — ADMIN PANEL =====
 
-// ===== FIREBASE CONFIG =====
-const firebaseConfig = {
-    apiKey: "AIzaSyCknOSxiSKhrvOnqx_-rE8lUMyanJVy26o",
-    authDomain: "suncoast-crm.firebaseapp.com",
-    projectId: "suncoast-crm",
-    storageBucket: "suncoast-crm.firebasestorage.app",
-    messagingSenderId: "943335181837",
-    appId: "1:943335181837:web:54036acd361b71fc40cf44",
-    measurementId: "G-VGLDWMWP84"
-};
-
+// Firebase config loaded from firebase-config.js (git-ignored)
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ===== PASSWORD =====
-const ADMIN_PASSWORD = 'suncoastmobile01';
+// ===== PASSWORD (SHA-256 hash comparison) =====
 let allBookings = [];
+
+// Hash function for password comparison
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
 // Check session
 if (sessionStorage.getItem('sc_admin') === 'true') {
     showDashboard();
 }
 
-document.getElementById('passwordForm').addEventListener('submit', function (e) {
+document.getElementById('passwordForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     const pw = document.getElementById('gatePassword').value;
-    if (pw === ADMIN_PASSWORD) {
+    const pwHash = await hashPassword(pw);
+    if (pwHash === ADMIN_PASSWORD_HASH) {
         sessionStorage.setItem('sc_admin', 'true');
         showDashboard();
     } else {

@@ -1,16 +1,6 @@
 // ===== SUNCOAST MOBILE DETAILING — BOOKING SYSTEM =====
 
-// ===== FIREBASE CONFIG =====
-const firebaseConfig = {
-    apiKey: "AIzaSyCknOSxiSKhrvOnqx_-rE8lUMyanJVy26o",
-    authDomain: "suncoast-crm.firebaseapp.com",
-    projectId: "suncoast-crm",
-    storageBucket: "suncoast-crm.firebasestorage.app",
-    messagingSenderId: "943335181837",
-    appId: "1:943335181837:web:54036acd361b71fc40cf44",
-    measurementId: "G-VGLDWMWP84"
-};
-
+// Firebase config loaded from firebase-config.js (git-ignored)
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
