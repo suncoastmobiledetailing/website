@@ -1,3 +1,4 @@
 node_modules/
 .env
 SECRETS_BACKUP.md
+vault.js

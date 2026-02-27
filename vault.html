@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 Suncoast Vault</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0a0e1a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vault {
+            background: #111827;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 520px;
+            width: 90%;
+            border: 1px solid #1e293b;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            min-height: 120px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            resize: vertical;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-restore {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff;
+        }
+
+        .btn-restore:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-status {
+            background: #334155;
+            color: #e0e0e0;
+        }
+
+        .btn-status:hover {
+            background: #475569;
+        }
+
+        .status {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .status.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10b981;
+            color: #6ee7b7;
+        }
+
+        .status.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+        }
+
+        .status.info {
+            display: block;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid #3b82f6;
+            color: #93c5fd;
+        }
+
+        .files-preview {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .warning {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 16px;
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="vault">
+        <h1>🔐 Suncoast Vault</h1>
+        <p class="subtitle">Encrypted secrets backup — stored safely in Firestore</p>
+
+        <div class="field">
+            <label>Master Password</label>
+            <input type="password" id="masterPw" placeholder="Enter your vault master password" />
+        </div>
+
+        <div class="field" id="envField">
+            <label>.env File Contents</label>
+            <textarea id="envContents" placeholder="Paste your .env contents here for saving..."></textarea>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-save" onclick="vaultSave()">💾 Save</button>
+            <button class="btn btn-restore" onclick="vaultRestore()">📥 Restore</button>
+            <button class="btn btn-status" onclick="vaultStatus()">📊 Status</button>
+        </div>
+
+        <div class="status" id="statusBox"></div>
+
+        <p class="warning">🔒 Your secrets are encrypted with AES-256-GCM before being stored.<br />Only your master
+            password can decrypt them.</p>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase config (same as booking/admin)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCknOSxiSKhrvOnqx_-rE8lUMyanJVy26o",
+            authDomain: "suncoast-crm.firebaseapp.com",
+            projectId: "suncoast-crm",
+            storageBucket: "suncoast-crm.firebasestorage.app",
+            messagingSenderId: "943335181837",
+            appId: "1:943335181837:web:54036acd361b71fc40cf44",
+            measurementId: "G-VGLDWMWP84"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const VAULT_DOC = db.collection('_vault').doc('secrets');
+
+        // ===== CRYPTO HELPERS (Web Crypto API) =====
+        async function deriveKey(password, salt) {
+            const enc = new TextEncoder();
+            const keyMaterial = await crypto.subtle.importKey(
+                'raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']
+            );
+            return crypto.subtle.deriveKey(
+                { name: 'PBKDF2', salt: salt, iterations: 100000, hash: 'SHA-512' },
+                keyMaterial,
+                { name: 'AES-GCM', length: 256 },
+                false,
+                ['encrypt', 'decrypt']
+            );
+        }
+
+        function hexToBytes(hex) {
+            const bytes = new Uint8Array(hex.length / 2);
+            for (let i = 0; i < hex.length; i += 2)
+                bytes[i / 2] = parseInt(hex.substr(i, 2), 16);
+            return bytes;
+        }
+
+        function bytesToHex(bytes) {
+            return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function encryptData(plaintext, password) {
+            const enc = new TextEncoder();
+            const salt = crypto.getRandomValues(new Uint8Array(32));
+            const iv = crypto.getRandomValues(new Uint8Array(12));
+            const key = await deriveKey(password, salt);
+            const encrypted = await crypto.subtle.encrypt(
+                { name: 'AES-GCM', iv: iv },
+                key,
+                enc.encode(plaintext)
+            );
+            return {
+                salt: bytesToHex(salt),
+                iv: bytesToHex(iv),
+                data: bytesToHex(new Uint8Array(encrypted))
+            };
+        }
+
+        async function decryptData(encrypted, password) {
+            const salt = hexToBytes(encrypted.salt);
+            const iv = hexToBytes(encrypted.iv);
+            const data = hexToBytes(encrypted.data);
+            const key = await deriveKey(password, salt);
+            const decrypted = await crypto.subtle.decrypt(
+                { name: 'AES-GCM', iv: iv },
+                key,
+                data
+            );
+            return new TextDecoder().decode(decrypted);
+        }
+
+        // ===== UI HELPERS =====
+        function showStatus(msg, type) {
+            const box = document.getElementById('statusBox');
+            box.className = 'status ' + type;
+            box.innerHTML = msg;
+        }
+
+        // ===== VAULT COMMANDS =====
+        async function vaultSave() {
+            const pw = document.getElementById('masterPw').value;
+            const envContents = document.getElementById('envContents').value;
+
+            if (!pw || pw.length < 4) {
+                showStatus('❌ Master password must be at least 4 characters.', 'error');
+                return;
+            }
+            if (!envContents.trim()) {
+                showStatus('❌ Please paste your .env contents before saving.', 'error');
+                return;
+            }
+
+            try {
+                document.querySelector('.vault').classList.add('loading');
+                showStatus('🔒 Encrypting & uploading...', 'info');
+
+                // Bundle the data
+                const bundle = JSON.stringify({
+                    '.env': envContents,
+                    '_timestamp': new Date().toISOString()
+                });
+
+                // Encrypt
+                const encrypted = await encryptData(bundle, pw);
+
+                // Save to Firestore
+                await VAULT_DOC.set({
+                    salt: encrypted.salt,
+                    iv: encrypted.iv,
+                    data: encrypted.data,
+                    updatedAt: new Date().toISOString(),
+                    fileCount: 1
+                });
+
+                showStatus(
+                    '✅ <strong>Vault saved successfully!</strong><br/>' +
+                    '📦 .env encrypted and stored in Firestore<br/>' +
+                    '🕐 ' + new Date().toLocaleString() + '<br/><br/>' +
+                    '💡 Remember your master password — it\'s the ONLY way to restore!',
+                    'success'
+                );
+            } catch (err) {
+                showStatus('❌ Error: ' + err.message, 'error');
+            } finally {
+                document.querySelector('.vault').classList.remove('loading');
+            }
+        }
+
+        async function vaultRestore() {
+            const pw = document.getElementById('masterPw').value;
+
+            if (!pw) {
+                showStatus('❌ Enter your master password first.', 'error');
+                return;
+            }
+
+            try {
+                document.querySelector('.vault').classList.add('loading');
+                showStatus('☁️ Fetching from Firestore...', 'info');
+
+                const doc = await VAULT_DOC.get();
+                if (!doc.exists) {
+                    showStatus('❌ No vault backup found! Save your secrets first.', 'error');
+                    return;
+                }
+
+                const encrypted = doc.data();
+                showStatus('🔓 Decrypting...', 'info');
+
+                let bundle;
+                try {
+                    const plaintext = await decryptData(encrypted, pw);
+                    bundle = JSON.parse(plaintext);
+                } catch (e) {
+                    showStatus('❌ <strong>Wrong password!</strong> Could not decrypt the vault.', 'error');
+                    return;
+                }
+
+                // Show the restored .env in the textarea
+                const envData = bundle['.env'] || '';
+                document.getElementById('envContents').value = envData;
+
+                showStatus(
+                    '✅ <strong>Vault restored successfully!</strong><br/>' +
+                    '📋 Your .env contents are now in the text box above.<br/>' +
+                    'Copy them and save to a <code>.env</code> file in your project root.<br/><br/>' +
+                    '🕐 Backup was from: ' + (bundle['_timestamp'] || encrypted.updatedAt || 'Unknown'),
+                    'success'
+                );
+            } catch (err) {
+                showStatus('❌ Error: ' + err.message, 'error');
+            } finally {
+                document.querySelector('.vault').classList.remove('loading');
+            }
+        }
+
+        async function vaultStatus() {
+            try {
+                document.querySelector('.vault').classList.add('loading');
+                showStatus('☁️ Checking Firestore...', 'info');
+
+                const doc = await VAULT_DOC.get();
+
+                if (!doc.exists) {
+                    showStatus('❌ No vault backup found. Click <strong>Save</strong> to create one.', 'error');
+                    return;
+                }
+
+                const data = doc.data();
+                showStatus(
+                    '✅ <strong>Vault backup exists!</strong><br/>' +
+                    '🕐 Last saved: ' + (data.updatedAt || 'Unknown') + '<br/>' +
+                    '🔒 Encrypted with AES-256-GCM',
+                    'success'
+                );
+            } catch (err) {
+                showStatus('❌ Error: ' + err.message, 'error');
+            } finally {
+                document.querySelector('.vault').classList.remove('loading');
+            }
+        }
+    </script>
+</body>
+
+</html>
