@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Your Detail | Suncoast Mobile Detailing</title>
     <meta name="description"
-        content="Book your mobile car detailing appointment with Suncoast Mobile Detailing. Choose your package, pick a date, and we'll come to you!" />
+        content="Book your mobile car detailing appointment with Suncoast Mobile Detailing. Choose your service, pick a date, and we'll come to you!" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap"
@@ -23,7 +23,7 @@
                     class="logo-img" /></a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html#services">Services</a></li>
-                <li><a href="index.html#pricing">Packages</a></li>
+                <li><a href="index.html#pricing">Plans</a></li>
                 <li><a href="index.html#shop">Shop</a></li>
                 <li><a href="index.html#areas">Areas</a></li>
                 <li><a href="booking.html" class="nav-cta">Book Now</a></li>
@@ -37,7 +37,7 @@
         <div class="booking-hero-bg" aria-hidden="true">BOOK</div>
         <div class="container">
             <h1 class="booking-title">BOOK YOUR<br />DETAIL</h1>
-            <p class="booking-subtitle">Pick your package, choose a date, and we'll come to you. Payment is collected in
+            <p class="booking-subtitle">Pick your service, choose a date, and we'll come to you. Payment is collected in
                 person.</p>
         </div>
     </section>
@@ -50,7 +50,7 @@
             <div class="booking-progress">
                 <div class="progress-step active" data-step="1">
                     <div class="step-num">1</div>
-                    <span>Package</span>
+                    <span>Service</span>
                 </div>
                 <div class="progress-line">
                     <div class="progress-fill" id="progressFill1"></div>
@@ -75,78 +75,79 @@
                 </div>
             </div>
 
-            <!-- STEP 1: PACKAGE SELECTION -->
+            <!-- STEP 1: SERVICE SELECTION -->
             <div class="step-panel active" id="step1">
-                <h2 class="step-title">Choose Your Package</h2>
+                <h2 class="step-title">Choose Your Service</h2>
 
-                <!-- Vehicle Type -->
-                <div class="vehicle-selector">
-                    <label class="vehicle-option active" data-type="sedan">
-                        <input type="radio" name="vehicleType" value="sedan" checked />
-                        <div class="vehicle-card">
-                            <span class="vehicle-icon">🚗</span>
-                            <span class="vehicle-label">Sedan</span>
-                        </div>
-                    </label>
-                    <label class="vehicle-option" data-type="suv">
-                        <input type="radio" name="vehicleType" value="suv" />
-                        <div class="vehicle-card">
-                            <span class="vehicle-icon">🚙</span>
-                            <span class="vehicle-label">SUV / Truck</span>
-                        </div>
-                    </label>
-                </div>
+                <!-- Vehicle type is now selected per-car in Step 3 -->
 
-                <!-- Package Cards -->
+                <!-- Service Cards -->
                 <div class="package-grid">
-                    <div class="package-card" data-package="basic" data-sedan="50" data-suv="60">
-                        <div class="package-tier">ESSENTIALS</div>
-                        <h3 class="package-name">Basic</h3>
-                        <div class="package-icon">🌊</div>
-                        <div class="package-price">$<span class="price-amount">50</span></div>
+                    <!-- Full Reset Detail -->
+                    <div class="package-card" data-package="reset" data-sedan="120" data-suv="150">
+                        <div class="package-badge package-badge-new">🚀 NEW CLIENT? START HERE</div>
+                        <div class="package-tier">STEP 1</div>
+                        <h3 class="package-name">Full Reset Detail</h3>
+                        <div class="package-icon">✨</div>
+                        <div class="package-price">$<span class="price-amount">120</span></div>
+                        <p class="package-desc">Restores your vehicle to a clean baseline. Required before enrolling in
+                            maintenance.</p>
                         <ul class="package-features">
-                            <li>Full inside & out hand wash</li>
+                            <li>Exterior hand wash</li>
+                            <li>Wheel & tire cleaning and shining</li>
                             <li>Interior vacuum & wipe-down</li>
-                            <li>Exterior wash & dry</li>
-                            <li>Tire & rim cleaning</li>
-                            <li>Window cleaning</li>
+                            <li>Glass cleaning inside & out</li>
+                            <li>Door jamb cleaning</li>
+                            <li>Heavy stain removal</li>
+                            <li>Interior deodorizing</li>
+                            <li>Full paint wax & clay bar</li>
+                            <li>Leather / plastic conditioning</li>
+                            <li>Carpet shampooing (if needed)</li>
                         </ul>
-                        <button class="btn btn-select" onclick="selectPackage('basic')">SELECT</button>
+                        <button class="btn btn-select" onclick="selectService('reset')">SELECT</button>
                     </div>
 
-                    <div class="package-card featured" data-package="wax" data-sedan="75" data-suv="75">
-                        <div class="package-badge">⭐ POPULAR</div>
-                        <div class="package-tier">ENHANCED</div>
-                        <h3 class="package-name">Basic + Wax Add-On</h3>
-                        <div class="package-icon">🌴</div>
-                        <div class="package-price">$<span class="price-amount">75</span></div>
+                    <!-- Maintenance Visit -->
+                    <div class="package-card featured" data-package="maintenance" data-sedan="50" data-suv="60">
+                        <div class="package-badge package-badge-maint">🔄 RECURRING</div>
+                        <div class="package-tier">STEP 2</div>
+                        <h3 class="package-name">Maintenance Visit</h3>
+                        <div class="package-icon">🔄</div>
+                        <div class="package-price">$<span class="price-amount">50</span><span class="price-per"> /
+                                visit</span></div>
+                        <p class="package-desc">Quick & affordable recurring service. Only available after a Full Reset
+                            Detail.</p>
+
+                        <!-- Frequency Selector -->
+                        <div class="freq-selector-booking" id="freqSelector">
+                            <span class="freq-booking-label">Choose your schedule:</span>
+                            <div class="freq-booking-options">
+                                <label class="freq-option" data-freq="weekly">
+                                    <input type="radio" name="frequency" value="weekly" />
+                                    <span class="freq-btn">Weekly</span>
+                                </label>
+                                <label class="freq-option" data-freq="biweekly">
+                                    <input type="radio" name="frequency" value="biweekly" />
+                                    <span class="freq-btn">Bi-Weekly</span>
+                                </label>
+                                <label class="freq-option" data-freq="monthly">
+                                    <input type="radio" name="frequency" value="monthly" />
+                                    <span class="freq-btn">Monthly</span>
+                                </label>
+                            </div>
+                            <span class="freq-booking-note">Same price per visit regardless of frequency.</span>
+                        </div>
+
                         <ul class="package-features">
-                            <li>Full inside & out hand wash</li>
-                            <li>Interior vacuum & wipe-down</li>
-                            <li>Exterior wash & dry</li>
-                            <li>Premium hand wax application</li>
-                            <li>Tire & rim shine</li>
+                            <li>Exterior wash</li>
+                            <li>Wheel cleaning</li>
+                            <li>Interior vacuum</li>
+                            <li>Interior surface wipe-down</li>
                             <li>Window cleaning</li>
+                            <li>Quick interior refresh</li>
                         </ul>
                         <button class="btn btn-select btn-select-featured"
-                            onclick="selectPackage('wax')">SELECT</button>
-                    </div>
-
-                    <div class="package-card" data-package="full" data-sedan="120" data-suv="150">
-                        <div class="package-tier">PREMIUM</div>
-                        <h3 class="package-name">Full Package</h3>
-                        <div class="package-icon">🌅</div>
-                        <div class="package-price">$<span class="price-amount">120</span></div>
-                        <ul class="package-features">
-                            <li>Full inside & out hand wash</li>
-                            <li>Premium hand wax & sealant</li>
-                            <li>Leather conditioning treatment</li>
-                            <li>Carpet & upholstery shampoo</li>
-                            <li>Dashboard & trim restoration</li>
-                            <li>Tire & rim deep clean & shine</li>
-                            <li>Window cleaning inside & out</li>
-                        </ul>
-                        <button class="btn btn-select" onclick="selectPackage('full')">SELECT</button>
+                            onclick="selectService('maintenance')">SELECT</button>
                     </div>
                 </div>
             </div>
@@ -212,10 +213,32 @@
                             <span class="field-error" id="errPhone"></span>
                         </div>
                         <div class="form-field">
-                            <label for="custEmail">Email (optional)</label>
-                            <input type="email" id="custEmail" name="email" autocomplete="email"
+                            <label for="custEmail">Email *</label>
+                            <input type="email" id="custEmail" name="email" required autocomplete="email"
                                 placeholder="john@example.com" />
                             <span class="field-error" id="errEmail"></span>
+                        </div>
+                        <div class="form-field full-width">
+                            <label>Your Vehicles *</label>
+                            <div class="vehicle-builder" id="vehicleBuilder">
+                                <div class="vb-header">
+                                    <span class="vb-label">How many vehicles?</span>
+                                    <div class="vb-counter">
+                                        <button type="button" class="vb-btn" id="vbMinus"
+                                            onclick="removeVehicle()">−</button>
+                                        <span class="vb-count" id="vbCount">1</span>
+                                        <button type="button" class="vb-btn" id="vbPlus"
+                                            onclick="addVehicle()">+</button>
+                                    </div>
+                                </div>
+                                <div class="vb-cards" id="vbCards">
+                                    <!-- Vehicle cards generated by JS -->
+                                </div>
+                                <div class="vb-total" id="vbTotal">
+                                    <!-- Total price shown here -->
+                                </div>
+                            </div>
+                            <span class="field-error" id="errNumCars"></span>
                         </div>
                         <div class="form-field full-width">
                             <label for="custAddress">Address *</label>
@@ -255,9 +278,11 @@
                 <h2 class="step-title">Review & Confirm</h2>
                 <div class="confirm-card">
                     <div class="confirm-section">
-                        <h3>📦 Package</h3>
+                        <h3>📦 Service</h3>
                         <p id="confirmPackage"></p>
                         <p id="confirmVehicle"></p>
+                        <p id="confirmFrequency"></p>
+                        <p id="confirmNumCars"></p>
                         <p class="confirm-price" id="confirmPrice"></p>
                     </div>
                     <div class="confirm-section">
@@ -294,8 +319,7 @@
                     <h2>BOOKING CONFIRMED!</h2>
                     <p class="success-id" id="successId"></p>
                     <p class="success-msg">We'll see you at your scheduled time. Payment is collected in person when the
-                        job is
-                        done.</p>
+                        job is done. A confirmation email has been sent.</p>
                     <div class="success-details" id="successDetails"></div>
                     <div class="success-contact">
                         <p>Questions? Contact us:</p>
@@ -319,7 +343,7 @@
                 </div>
                 <div class="footer-links">
                     <h4>LINKS</h4>
-                    <a href="index.html#services">Services</a><a href="index.html#pricing">Packages</a><a
+                    <a href="index.html#services">Services</a><a href="index.html#pricing">Plans</a><a
                         href="index.html#shop">Shop</a><a href="index.html#areas">Areas</a><a href="booking.html">Book
                         Now</a>
                 </div>
@@ -339,6 +363,8 @@
     <!-- Firebase SDK (compat for simplicity) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="booking.js"></script>
 </body>
 

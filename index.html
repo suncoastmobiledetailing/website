@@ -23,7 +23,7 @@
       <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
       <ul class="nav-links" id="navLinks">
         <li><a href="#services">Services</a></li>
-        <li><a href="#pricing">Packages</a></li>
+        <li><a href="#pricing">Plans</a></li>
         <li><a href="#shop">Shop</a></li>
         <li><a href="#areas">Areas</a></li>
         <li><a href="booking.html" class="nav-cta">Book Now</a></li>
@@ -56,7 +56,7 @@
       <h1>PREMIUM MOBILE<br />DETAILING</h1>
       <p class="hero-sub">We bring the shine to your driveway — Parkland &amp; all of South Florida.</p>
       <div class="hero-btns">
-        <a href="#pricing" class="btn btn-glow">VIEW PACKAGES</a>
+        <a href="#pricing" class="btn btn-glow">VIEW PLANS</a>
         <a href="booking.html" class="btn btn-ghost">GET A QUOTE</a>
       </div>
     </div>
@@ -126,64 +126,105 @@
         <path d="M0,50 C360,100 720,-10 1440,50 L1440,0 L0,0 Z" fill="#32bfc9" />
       </svg></div>
     <div class="container">
-      <h2 class="section-title" data-scroll="fade-up">OUR PACKAGES</h2>
-      <p class="section-sub" data-scroll="fade-up">Choose your level of shine.</p>
-      <div class="pricing-grid">
-        <!-- Basic -->
-        <div class="pricing-card" data-scroll="fade-up" data-delay="0">
-          <div class="pricing-tier">ESSENTIALS</div>
-          <h3 class="pricing-name">Basic</h3>
-          <div class="pricing-icon">🌊</div>
-          <div class="price-row"><span class="price-dollar">$</span><span class="price-num">50</span></div>
-          <div class="price-label">Sedan</div>
-          <div class="price-alt">$60 <span>SUV / Truck</span></div>
+      <h2 class="section-title" data-scroll="fade-up">HOW IT WORKS</h2>
+      <p class="section-sub" data-scroll="fade-up">A smarter way to keep your car clean — reset once, maintain forever.
+      </p>
+
+      <!-- PHASE FLOW -->
+      <div class="pricing-flow">
+
+        <!-- PHASE 1: FULL RESET DETAIL -->
+        <div class="pricing-phase" data-scroll="fade-up">
+          <div class="phase-badge phase-badge-start">🚀 START HERE</div>
+          <div class="phase-step-num">STEP 1</div>
+          <h3 class="phase-title">Full Reset Detail</h3>
+          <p class="phase-desc">Every new client starts here. We restore your vehicle to a clean baseline so future
+            maintenance visits are faster and cheaper.</p>
+          <div class="phase-pricing-row">
+            <div class="phase-price-box">
+              <span class="phase-price-label">Sedan</span>
+              <span class="phase-price-amount">$120</span>
+            </div>
+            <div class="phase-price-divider"></div>
+            <div class="phase-price-box">
+              <span class="phase-price-label">SUV / Truck</span>
+              <span class="phase-price-amount">$150</span>
+            </div>
+          </div>
           <ul class="pricing-features">
-            <li>Full inside &amp; out hand wash</li>
-            <li>Interior vacuum &amp; wipe-down</li>
-            <li>Exterior wash &amp; dry</li>
-            <li>Tire &amp; rim cleaning</li>
+            <li>Exterior hand wash</li>
+            <li>Wheel &amp; tire cleaning and shining</li>
+            <li>Interior vacuum</li>
+            <li>Interior surface wipe-down</li>
+            <li>Glass cleaning inside &amp; out</li>
+            <li>Door jamb cleaning</li>
+            <li>Heavy stain removal</li>
+            <li>Interior deodorizing</li>
+            <li>Full paint wax</li>
+            <li>Full car clay bar</li>
+            <li>Leather / plastic conditioning</li>
+            <li>Carpet shampooing (if needed)</li>
+          </ul>
+          <p class="phase-note">Compound, polish &amp; wash available on request — prices may vary.</p>
+          <a href="booking.html?service=reset" class="btn btn-glow btn-card">BOOK RESET DETAIL</a>
+        </div>
+
+        <!-- CONNECTOR -->
+        <div class="phase-connector" data-scroll="fade-up">
+          <div class="connector-line"></div>
+          <div class="connector-arrow">↓</div>
+          <div class="connector-text">Then enroll in maintenance</div>
+          <div class="connector-line"></div>
+        </div>
+
+        <!-- PHASE 2: MAINTENANCE PLAN -->
+        <div class="pricing-phase pricing-phase-maint" data-scroll="fade-up">
+          <div class="phase-badge phase-badge-maint">🔄 RECURRING</div>
+          <div class="phase-step-num">STEP 2</div>
+          <h3 class="phase-title">Maintenance Plan</h3>
+          <p class="phase-desc">After your reset, keep your vehicle spotless year-round. Quicker visits, lower price —
+            because your car is already clean.</p>
+          <div class="phase-pricing-row">
+            <div class="phase-price-box">
+              <span class="phase-price-label">Sedan</span>
+              <span class="phase-price-amount">$50<span class="per-visit"> / visit</span></span>
+            </div>
+            <div class="phase-price-divider"></div>
+            <div class="phase-price-box">
+              <span class="phase-price-label">SUV / Truck</span>
+              <span class="phase-price-amount">$60<span class="per-visit"> / visit</span></span>
+            </div>
+          </div>
+          <div class="freq-selector">
+            <span class="freq-label">Choose your schedule:</span>
+            <div class="freq-options">
+              <a href="booking.html?service=maintenance&frequency=weekly" class="freq-chip">Weekly</a>
+              <a href="booking.html?service=maintenance&frequency=biweekly" class="freq-chip">Bi-Weekly</a>
+              <a href="booking.html?service=maintenance&frequency=monthly" class="freq-chip">Monthly</a>
+            </div>
+            <span class="freq-note">Same price per visit — you just pick how often.</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Exterior wash</li>
+            <li>Wheel cleaning</li>
+            <li>Interior vacuum</li>
+            <li>Interior surface wipe-down</li>
             <li>Window cleaning</li>
+            <li>Quick interior refresh</li>
           </ul>
-          <a href="booking.html?package=basic" class="btn btn-card">BOOK NOW</a>
+          <a href="booking.html?service=maintenance" class="btn btn-glow btn-card">JOIN MAINTENANCE</a>
         </div>
-        <!-- Basic + Wax Add-On -->
-        <div class="pricing-card pricing-featured" data-scroll="fade-up" data-delay="1">
-          <div class="pricing-badge">⭐ POPULAR</div>
-          <div class="pricing-tier">ENHANCED</div>
-          <h3 class="pricing-name">Basic + Wax Add-On</h3>
-          <div class="pricing-icon">🌴</div>
-          <div class="price-row"><span class="price-dollar">$</span><span class="price-num">75</span></div>
-          <div class="price-label">Sedan / SUV</div>
-          <ul class="pricing-features">
-            <li>Full inside &amp; out hand wash</li>
-            <li>Interior vacuum &amp; wipe-down</li>
-            <li>Exterior wash &amp; dry</li>
-            <li>Premium hand wax application</li>
-            <li>Tire &amp; rim shine</li>
-            <li>Window cleaning</li>
-          </ul>
-          <a href="booking.html?package=wax" class="btn btn-glow btn-card">BOOK NOW</a>
-        </div>
-        <!-- Full Package -->
-        <div class="pricing-card" data-scroll="fade-up" data-delay="2">
-          <div class="pricing-tier">PREMIUM</div>
-          <h3 class="pricing-name">Full Package</h3>
-          <div class="pricing-icon">🌅</div>
-          <div class="price-row"><span class="price-dollar">$</span><span class="price-num">120</span></div>
-          <div class="price-label">Sedan</div>
-          <div class="price-alt">$150 <span>SUV / Truck</span></div>
-          <ul class="pricing-features">
-            <li>Full inside &amp; out hand wash</li>
-            <li>Premium hand wax &amp; sealant</li>
-            <li>Leather conditioning treatment</li>
-            <li>Carpet &amp; upholstery shampoo</li>
-            <li>Dashboard &amp; trim restoration</li>
-            <li>Tire &amp; rim deep clean &amp; shine</li>
-            <li>Window cleaning inside &amp; out</li>
-          </ul>
-          <a href="booking.html?package=full" class="btn btn-card">BOOK NOW</a>
-        </div>
+
       </div>
+
+      <!-- MAINTENANCE RULE -->
+      <div class="maint-rule" data-scroll="fade-up">
+        <div class="rule-icon">ℹ️</div>
+        <p>Maintenance pricing applies when serviced within your selected schedule. If more than <strong>30
+            days</strong> pass since your last visit, a new Full Reset Detail is required before maintenance pricing
+          resumes.</p>
+      </div>
+
     </div>
     <div class="wave-bot"><svg viewBox="0 0 1440 80" preserveAspectRatio="none">
         <path d="M0,30 C360,-20 720,80 1440,30 L1440,80 L0,80 Z" fill="#febc59" />
@@ -398,7 +439,7 @@
         </div>
         <div class="footer-links">
           <h4>LINKS</h4>
-          <a href="#services">Services</a><a href="#pricing">Packages</a><a href="#shop">Shop</a><a
+          <a href="#services">Services</a><a href="#pricing">Plans</a><a href="#shop">Shop</a><a
             href="#areas">Areas</a><a href="#contact">Contact</a>
         </div>
         <div class="footer-areas">

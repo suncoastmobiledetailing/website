@@ -28,7 +28,7 @@ The official website and booking system for **Suncoast Mobile Detailing** — a 
 
 This repo powers:
 - 🌊 **A stunning landing page** with 3D animated hero, service showcases, and customer reviews
-- 📅 **A full booking system** with real-time calendar, time slot management, and anti-spam protection
+- 📅 **A full booking system** with recurring maintenance plans, per-car vehicle selection, and anti-spam protection
 - 🛒 **A dropshipping shop** with Stripe-powered checkout for professional car care products
 - 📍 **Smart address autocomplete** that checks if you're within our 25-mile service radius
 
@@ -40,7 +40,7 @@ This repo powers:
 | Feature | Description |
 |---------|-------------|
 | 🌅 **3D Animated Hero** | Three.js powered background with interactive particles |
-| 📦 **Service Packages** | Three tiers — Basic, Basic + Wax, and Full Package |
+| 💰 **Reset + Maintenance Pricing** | Clear two-step model — initial reset, then recurring maintenance |
 | 🖼️ **Gallery Carousel** | Smooth, infinite-scrolling photo gallery |
 | 🗺️ **Service Area Map** | Coverage across 8+ South Florida cities |
 | 📱 **Fully Responsive** | Looks amazing on phones, tablets, and desktops |
@@ -49,8 +49,11 @@ This repo powers:
 ### 📅 The Booking System
 | Feature | Description |
 |---------|-------------|
-| 📆 **Interactive Calendar** | Pick any date within the next 4 weeks |
+| 📆 **Interactive Calendar** | Pick any date within the next 60 days |
 | ⏰ **Real-Time Time Slots** | Slots already booked by others show as unavailable |
+| 🚗 **Vehicle Builder** | Add up to 4 vehicles and choose sedan or SUV/truck for each |
+| 🔄 **Recurring Maintenance** | Weekly (4 visits), bi-weekly (2), or monthly (3) scheduling |
+| ✏️ **Per-Visit Time Editor** | Customize the time for each upcoming recurring visit |
 | 📍 **Address Autocomplete** | Type-ahead address search powered by Photon/OSM |
 | 🛡️ **25-Mile Radius Check** | Automatically blocks out-of-area bookings from Parkland, FL |
 | 🚫 **Anti-Spam Protection** | Honeypot fields, rate limiting, and timing checks |

@@ -465,9 +465,11 @@ img {
 /* ===== PACKAGE GRID ===== */
 .package-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
     align-items: stretch;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .package-card {
@@ -502,9 +504,7 @@ img {
 }
 
 .package-badge {
-    position: absolute;
-    top: 14px;
-    right: 14px;
+    display: inline-block;
     background: linear-gradient(135deg, var(--gold), var(--orange));
     color: var(--text-dark);
     padding: 5px 14px;
@@ -512,6 +512,124 @@ img {
     font-weight: 800;
     letter-spacing: 0.06em;
     border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+.package-badge-new {
+    background: linear-gradient(135deg, var(--gold), var(--orange));
+    color: var(--text-dark);
+}
+
+.package-badge-maint {
+    background: linear-gradient(135deg, var(--teal), var(--teal-deep));
+    color: var(--white);
+}
+
+.package-desc {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.price-per {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Frequency Selector (Booking Page) */
+.freq-selector-booking {
+    margin-bottom: 20px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.freq-selector-booking.freq-required {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(254, 188, 89, 0.3);
+    animation: freq-shake 0.5s ease;
+}
+
+@keyframes freq-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-6px);
+    }
+
+    40% {
+        transform: translateX(6px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+.freq-booking-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 10px;
+}
+
+.freq-booking-options {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.freq-option {
+    cursor: pointer;
+}
+
+.freq-option input {
+    display: none;
+}
+
+.freq-btn {
+    display: inline-block;
+    padding: 9px 22px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: var(--white);
+    transition: all 0.3s ease;
+}
+
+.freq-option:hover .freq-btn {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.freq-option.active .freq-btn,
+.freq-option input:checked+.freq-btn {
+    background: linear-gradient(135deg, var(--teal), var(--teal-deep));
+    border-color: transparent;
+    box-shadow: 0 4px 16px rgba(50, 191, 201, 0.3);
+}
+
+.freq-booking-note {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.45);
 }
 
 .package-tier {
@@ -797,7 +915,8 @@ img {
 }
 
 .form-field input,
-.form-field textarea {
+.form-field textarea,
+.form-field select {
     padding: 14px 18px;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.06);
@@ -810,10 +929,16 @@ img {
 }
 
 .form-field input:focus,
-.form-field textarea:focus {
+.form-field textarea:focus,
+.form-field select:focus {
     border-color: var(--teal);
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 0 3px rgba(50, 191, 201, 0.15);
+}
+
+.form-field select option {
+    background: var(--navy);
+    color: var(--white);
 }
 
 .form-field input::placeholder,
@@ -968,6 +1093,304 @@ img {
 
 .success-details strong {
     color: var(--white);
+}
+
+/* ===== VEHICLE BUILDER ===== */
+.vehicle-builder {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 8px;
+}
+
+.vb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.vb-label {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.vb-counter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.vb-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vb-btn:hover:not(:disabled) {
+    background: var(--teal);
+    border-color: var(--teal);
+    transform: scale(1.1);
+}
+
+.vb-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.vb-count {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--teal-light);
+    min-width: 28px;
+    text-align: center;
+}
+
+.vb-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vb-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.25s;
+    animation: vbSlideIn 0.3s ease-out;
+}
+
+@keyframes vbSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.vb-car-num {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    min-width: 70px;
+}
+
+.vb-type-toggle {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+}
+
+.vb-type-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.5);
+    font-family: var(--font);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.vb-type-btn.active {
+    background: rgba(50, 191, 201, 0.15);
+    border-color: var(--teal);
+    color: var(--teal-light);
+    box-shadow: 0 0 12px rgba(50, 191, 201, 0.15);
+}
+
+.vb-type-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.vb-car-price {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gold);
+    min-width: 50px;
+    text-align: right;
+}
+
+.vb-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(50, 191, 201, 0.08), rgba(255, 193, 7, 0.06));
+    border: 1px solid rgba(50, 191, 201, 0.2);
+    border-radius: 12px;
+}
+
+.vb-total:empty {
+    display: none;
+}
+
+.vb-total-label {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.vb-total-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+/* Mobile responsive for vehicle builder */
+@media (max-width: 600px) {
+    .vb-card {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .vb-car-num {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .vb-type-toggle {
+        width: 100%;
+    }
+
+    .vb-car-price {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+/* Recurring visit editor */
+.confirm-recurring,
+.success-recurring {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba(50, 191, 201, 0.08);
+    border: 1px solid rgba(50, 191, 201, 0.2);
+    border-radius: 14px;
+}
+
+.confirm-recurring h4,
+.success-recurring p strong {
+    color: var(--teal-light);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.recurring-hint {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 12px;
+}
+
+.recurring-visits {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.recurring-visit-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.visit-date {
+    flex: 1;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.8);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.visit-time-select {
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 0.85rem;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.visit-time-select:focus {
+    border-color: var(--teal);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(50, 191, 201, 0.2);
+}
+
+.visit-time-select option {
+    background: #1a1f2e;
+    color: var(--white);
+}
+
+.visit-time-select option:disabled {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.visit-status {
+    font-size: 0.8rem;
+    min-width: 24px;
+    text-align: center;
+}
+
+.visit-ok {
+    color: #00b894;
+}
+
+.visit-full {
+    color: #ff6b6b;
+}
+
+.success-recurring ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.success-recurring li {
+    padding: 6px 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.success-recurring li:last-child {
+    border-bottom: none;
 }
 
 .success-contact {

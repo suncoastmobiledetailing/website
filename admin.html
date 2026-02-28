@@ -81,6 +81,7 @@
                 <button class="tab-btn active" data-tab="calendar" onclick="switchTab('calendar')">📅 Calendar</button>
                 <button class="tab-btn" data-tab="today" onclick="switchTab('today')">🕐 Today</button>
                 <button class="tab-btn" data-tab="all" onclick="switchTab('all')">📋 All Bookings</button>
+                <button class="tab-btn" data-tab="archive" onclick="switchTab('archive')">📦 Archive</button>
             </div>
 
             <!-- CALENDAR TAB -->
@@ -126,6 +127,14 @@
                     </select>
                 </div>
                 <div class="bookings-list" id="allList"></div>
+            </div>
+
+            <!-- ARCHIVE TAB -->
+            <div class="tab-panel" id="tabArchive">
+                <h2 class="tab-title">Archived Bookings</h2>
+                <p class="tab-subtitle">Archived bookings are hidden from the main views. You can unarchive them at any
+                    time.</p>
+                <div class="bookings-list" id="archiveList"></div>
             </div>
 
         </div>
