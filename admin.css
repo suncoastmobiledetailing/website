@@ -719,20 +719,296 @@ img {
 }
 
 @media (max-width: 600px) {
-    .stats-bar {
-        grid-template-columns: 1fr;
+
+    /* ===== HEADER ===== */
+    .admin-header {
+        padding: 12px 16px;
     }
 
-    .admin-day {
-        min-height: 50px;
-        padding: 4px;
+    .admin-header-inner {
+        flex-direction: column;
+        gap: 10px;
     }
 
-    .admin-day .day-num {
+    .admin-brand {
+        gap: 10px;
+    }
+
+    .admin-logo {
+        height: 36px;
+    }
+
+    .admin-brand h1 {
+        font-size: 1.15rem;
+    }
+
+    .admin-brand p {
         font-size: 0.75rem;
     }
 
+    .admin-actions {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .admin-actions .btn-sm {
+        padding: 8px 12px;
+        font-size: 0.72rem;
+        letter-spacing: 0.03em;
+    }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 0 16px;
+        margin: 16px auto;
+    }
+
+    .stat-card {
+        padding: 14px 10px;
+        border-radius: 14px;
+    }
+
+    .stat-num {
+        font-size: 1.6rem;
+    }
+
+    .stat-label {
+        font-size: 0.68rem;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .admin-main {
+        padding: 0 12px 40px;
+    }
+
+    /* ===== TABS — horizontal scroll ===== */
+    .admin-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 2px;
+        padding: 3px;
+        margin-bottom: 16px;
+        border-radius: 12px;
+    }
+
+    .admin-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        flex: 0 0 auto;
+        padding: 10px 14px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        border-radius: 10px;
+    }
+
+    .tab-title {
+        font-size: 1.4rem;
+        margin-bottom: 14px;
+    }
+
+    .tab-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    /* ===== CALENDAR ===== */
+    .admin-calendar-wrap {
+        padding: 14px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+    }
+
+    .admin-cal-header {
+        margin-bottom: 12px;
+    }
+
+    .admin-cal-header .cal-month {
+        font-size: 1.4rem;
+    }
+
+    .cal-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+    }
+
+    .admin-cal-weekdays span {
+        font-size: 0.65rem;
+        padding: 4px 0;
+    }
+
+    .admin-cal-days {
+        gap: 4px;
+    }
+
+    .admin-day {
+        min-height: 44px;
+        padding: 4px;
+        border-radius: 10px;
+    }
+
+    .admin-day .day-num {
+        font-size: 0.72rem;
+        margin-bottom: 2px;
+    }
+
+    .day-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .day-count {
+        font-size: 0.6rem;
+    }
+
+    /* ===== DAY DETAIL ===== */
+    .day-detail {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .day-detail-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .close-detail {
+        width: 34px;
+        height: 34px;
+        font-size: 1.2rem;
+    }
+
+    /* ===== BOOKING CARDS ===== */
+    .booking-card {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 14px 16px;
+        border-radius: 14px;
+    }
+
+    .booking-time {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        min-width: unset;
+        text-align: left;
+    }
+
+    .booking-time .time-val {
+        font-size: 1.1rem;
+    }
+
+    .booking-time .time-date,
+    .booking-time .time-duration {
+        font-size: 0.75rem;
+    }
+
+    .booking-info h4 {
+        font-size: 1rem;
+    }
+
+    .booking-info .booking-meta {
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .booking-info .booking-meta span {
+        margin-right: 10px;
+    }
+
+    /* Stack status badge + actions vertically */
+    .booking-status-wrap {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .status-badge {
+        font-size: 0.7rem;
+        padding: 4px 12px;
+    }
+
+    /* Larger touch targets for action buttons */
+    .status-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .btn-status {
+        padding: 10px 16px;
+        font-size: 0.78rem;
+        border-radius: 10px;
+        flex: 1 1 auto;
+        min-width: 0;
+        text-align: center;
+    }
+
+    /* ===== FILTER ===== */
+    .filter-select {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        border-radius: 10px;
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+        padding: 40px 16px;
+    }
+
+    .empty-state .empty-icon {
+        font-size: 2.5rem;
+    }
+
+    .empty-state p {
+        font-size: 0.95rem;
+    }
+
+    /* ===== PASSWORD GATE ===== */
     .gate-card {
         padding: 36px 24px;
+    }
+
+    .gate-card h1 {
+        font-size: 2rem;
+    }
+
+    .gate-card p {
+        font-size: 0.9rem;
+    }
+}
+
+/* ===== EXTRA SMALL (320px) ===== */
+@media (max-width: 380px) {
+    .admin-actions .btn-sm {
+        padding: 7px 8px;
+        font-size: 0.65rem;
+    }
+
+    .stat-num {
+        font-size: 1.3rem;
+    }
+
+    .tab-btn {
+        padding: 8px 10px;
+        font-size: 0.72rem;
+    }
+
+    .btn-status {
+        padding: 8px 10px;
+        font-size: 0.72rem;
     }
 }
