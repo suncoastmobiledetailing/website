@@ -411,6 +411,7 @@ document.getElementById('bookingForm').addEventListener('submit', function (e) {
             phone: document.getElementById('custPhone').value.trim().replace(/\D/g, ''),
             email: document.getElementById('custEmail').value.trim(),
             address: document.getElementById('custAddress').value.trim(),
+            city: document.getElementById('custCity').value.trim(),
             notes: document.getElementById('custNotes').value.trim()
         };
         // numCars is now from vehicle builder
@@ -455,10 +456,18 @@ function validateForm() {
     const address = document.getElementById('custAddress');
     const errAddress = document.getElementById('errAddress');
     if (!address.value.trim() || address.value.trim().length < 5) {
-        errAddress.textContent = 'Please enter your address';
+        errAddress.textContent = 'Please enter your street address';
         address.classList.add('invalid');
         valid = false;
     } else { errAddress.textContent = ''; address.classList.remove('invalid'); }
+
+    const city = document.getElementById('custCity');
+    const errCity = document.getElementById('errCity');
+    if (!city.value.trim() || city.value.trim().length < 2) {
+        errCity.textContent = 'Please enter your city';
+        city.classList.add('invalid');
+        valid = false;
+    } else { errCity.textContent = ''; city.classList.remove('invalid'); }
 
     return valid;
 }
@@ -543,7 +552,7 @@ function populateConfirmation() {
     document.getElementById('confirmName').textContent = '\u{1F464} ' + state.customer.name;
     document.getElementById('confirmPhone').textContent = '\u{1F4F1} ' + state.customer.phone;
     document.getElementById('confirmEmail').textContent = '\u{1F4E7} ' + state.customer.email;
-    document.getElementById('confirmAddress').textContent = '\u{1F4CD} ' + state.customer.address;
+    document.getElementById('confirmAddress').textContent = '\u{1F4CD} ' + state.customer.address + ', ' + state.customer.city;
     document.getElementById('confirmNotes').textContent = state.customer.notes ? '\u{1F4DD} ' + state.customer.notes : '';
 
     // Remove any previously inserted recurring editor
@@ -827,7 +836,7 @@ async function submitBooking() {
                 name: state.customer.name,
                 phone: state.customer.phone,
                 email: state.customer.email,
-                address: state.customer.address,
+                address: state.customer.address + ', ' + state.customer.city,
                 notes: state.customer.notes || '',
                 serviceType: state.selectedService,
                 serviceName: svc.name,
@@ -869,7 +878,7 @@ async function submitBooking() {
             numCars: getNumCars(),
             date: state.selectedDate,
             timeSlot: state.selectedTime,
-            address: state.customer.address,
+            address: state.customer.address + ', ' + state.customer.city,
             price: totalPrice
         };
         await sendConfirmationEmail(firstBookingId, emailData, allDates);
@@ -917,7 +926,7 @@ function showSuccess(bookingId, allDates, visitTimes) {
 
     detailsHtml +=
         '<p><strong>Price:</strong> $' + totalPrice + ' per visit (pay in person)</p>' +
-        '<p><strong>Address:</strong> ' + state.customer.address + '</p>';
+        '<p><strong>Address:</strong> ' + state.customer.address + ', ' + state.customer.city + '</p>';
 
     if (isRecurring && allDates && allDates.length > 1) {
         detailsHtml += '<div class="success-recurring"><p><strong>\u{1F4C5} ' + allDates.length + ' visits scheduled:</strong></p><ul>';
